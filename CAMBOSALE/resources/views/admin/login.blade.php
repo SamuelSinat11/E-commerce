@@ -15,8 +15,8 @@
 
         <!-- Display errors -->
         @if ($errors->any())
-            <ul class="text-red-500 mb-4">
-                @foreach($errors->all() as $error)
+            <ul class="text-red-500 mb-4" role="alert">
+                @foreach ($errors->all() as $error)
                     <li>{{ $error }}</li>
                 @endforeach
             </ul>
@@ -24,7 +24,7 @@
 
         <!-- Display session message -->
         @if (Session::has('error'))
-            <ul class="text-red-500 mb-4">
+            <ul class="text-red-500 mb-4" role="alert">
                 <li>{{ Session::get('error') }}</li>
             </ul>
         @endif
@@ -35,19 +35,34 @@
             <!-- Email input -->
             <div class="mb-4">
                 <label for="email" class="block text-sm font-medium text-gray-700">Email Address</label>
-                <input type="email" name="email" id="email" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" required>
+                <input 
+                    type="email" 
+                    name="email" 
+                    id="email" 
+                    class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" 
+                    required
+                    aria-describedby="emailHelp">
             </div>
 
             <!-- Password input -->
             <div class="mb-4">
                 <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
-                <input type="password" name="password" id="password" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" required>
+                <input 
+                    type="password" 
+                    name="password" 
+                    id="password" 
+                    class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" 
+                    required
+                    aria-describedby="passwordHelp">
             </div>
 
-            <!-- Forgot password checkbox -->
+            <!-- Forgot password link -->
             <div class="flex items-center mb-6">
-                <input type="checkbox" class="mr-2 leading-tight" id="forgotPassword">
-                <label for="forgotPassword" class="text-sm text-gray-600">Forget Password</label>
+                <input type="checkbox" id="rememberMe" class="mr-2 leading-tight">
+                <label for="rememberMe" class="text-sm text-gray-600">Remember Me</label>
+                <a href="{{ route('admin.forget_password') }}" class="ml-auto text-sm text-indigo-600 hover:underline">
+                    Forgot Password?
+                </a>
             </div>
 
             <!-- Submit button -->
