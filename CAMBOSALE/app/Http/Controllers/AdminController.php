@@ -24,7 +24,7 @@ class AdminController extends Controller
      */
     public function AdminDashboard()
     {
-        return view('admin.admin_dashboard');
+        return view('admin.index');
     }
 
     /**
@@ -148,4 +148,8 @@ class AdminController extends Controller
             ->route('admin.login')
             ->with('success', 'Password Reset Successfully');
     }
+
+
+
+
 }
