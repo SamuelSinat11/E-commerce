@@ -1,3 +1,4 @@
+
 <header id="page-topbar">
     <div class="navbar-header">
         <div class="d-flex">
@@ -217,7 +218,7 @@
                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <img class="rounded-circle header-profile-user" src="{{ asset('backend/assets/images/users/avatar-1.jpg') }}"
                         alt="Header Avatar">
-                    <span class="d-none d-xl-inline-block ms-1 fw-medium">Samuel</span>
+                    <span class="d-none d-xl-inline-block ms-1 fw-medium"> Samuel </span>
                     <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
                 </button>
                 <div class="dropdown-menu dropdown-menu-end">
@@ -231,3 +232,4 @@
         </div>
     </div>
 </header>
+
