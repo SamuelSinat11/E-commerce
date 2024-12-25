@@ -71,18 +71,6 @@
                                 </div>
                             </div>
                         </div>
-
-                        <ul class="nav nav-tabs-custom card-header-tabs border-top mt-4" id="pills-tab" role="tablist">
-                            <li class="nav-item">
-                                <a class="nav-link px-3 active" data-bs-toggle="tab" href="#overview" role="tab">Overview</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link px-3" data-bs-toggle="tab" href="#about" role="tab">About</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link px-3" data-bs-toggle="tab" href="#post" role="tab">Post</a>
-                            </li>
-                        </ul>
                     </div>
                     <!-- end card body -->
                 </div>
@@ -90,6 +78,60 @@
 
            
                 <!-- end tab content -->
+
+                <div class="card-body p-4">
+                    <form action = ""> 
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div>
+                                <div class="mb-3">
+                                    <label for="example-text-input" class="form-label">Name</label>
+                                    <input class="form-control" type="text" name="name" value="{{ $profileData -> name }}" id="example-text-input">
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="example-text-input" class="form-label">Email</label>
+                                    <input class="form-control" type="email" name="email" value="{{ $profileData -> email }}" id="example-text-input">
+                                </div>
+
+                                
+                                <div class="mb-3">
+                                    <label for="example-text-input" class="form-label">Phone</label>
+                                    <input class="form-control" type="text" name="phone" value="{{ $profileData -> phone }}" id="example-text-input">
+                                </div>
+
+
+                               
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="mt-3 mt-lg-0">
+                                <div class="mb-3">
+                                    <label for="example-text-input" class="form-label">Address</label>
+                                    <input class="form-control" type="text" name="address" value="{{ $profileData -> address }}" id="example-text-input">
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="example-text-input" class="form-label">Profile Image</label>
+                                    <input class="form-control" type="file" name="photo"  id="image">
+                                </div>
+
+                                
+                                <div class="mb-3">
+                                    <img src="{{ !empty($profileData->photo) ? url('upload/admin_image/'.$profileData->photo) : url('upload/no_image.jpg') }}" alt="" 
+                                    class="rounded-circle p-0.5 mb-1 bg-primary" width = "70">
+                                </div>
+                                
+                                <div class = "mt-3">
+                                    <button type = "submit" class = "btn btn-primary waves-effect waves-light"> Save Changes </button> 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </form>
+                </div>
+
             </div>
             <!-- end col -->
 
