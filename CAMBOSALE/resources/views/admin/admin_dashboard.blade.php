@@ -92,7 +92,7 @@
 
 <!-- App JS -->
 <script src="{{ asset('backend/assets/js/app.js') }}"></script>
-
+<script src="{{ asset('backend/assets/js/validate.min.js') }}"></script>
 
 <!-- DataTables -->
 <link href="{{ asset('backend/assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css')}}" rel="stylesheet" type="text/css" />

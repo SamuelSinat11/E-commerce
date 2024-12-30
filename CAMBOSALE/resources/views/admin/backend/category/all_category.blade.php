@@ -13,7 +13,7 @@
                     <div class="page-title-right">
                         <ol class="breadcrumb m-0">
                             <td>
-                                <a href="" class="btn btn-primary waves-effect waves-light">  Add Category</a>
+                                <a href="{{ route('add.category')}}" class="btn btn-primary waves-effect waves-light">  Add Category</a>
                             </td>
                         </ol>
                     </div>
@@ -27,11 +27,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Default Datatable</h4>
-                        <p class="card-title-desc">DataTables has most features enabled by
-                            default, so all you need to do to use it with your own tables is to call
-                            the construction function: <code>$().DataTable();</code>.
-                        </p>
+                      <h3> ទិន្នន័យទាំងអស់បានបង្ហាញដូចខាងក្រោម​ </h3> 
                     </div>
                     <div class="card-body">
 
