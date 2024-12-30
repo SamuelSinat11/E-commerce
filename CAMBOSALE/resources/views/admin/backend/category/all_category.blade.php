@@ -52,7 +52,7 @@
                                     </td>
 
                                    <td class="text-center">
-                                        <a href="" class="btn btn-info btn-sm waves-effect waves-light mx-2">EDIT</a>
+                                        <a href="{{ route('edit.category', $item -> id )}}" class="btn btn-info btn-sm waves-effect waves-light mx-2">EDIT</a>
                                         <a href="" class="btn btn-danger btn-sm waves-effect waves-light mx-2">DELETE</a>
                                 </td>    
                                 </tr>
