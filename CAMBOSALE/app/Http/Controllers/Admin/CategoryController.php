@@ -57,56 +57,74 @@ class CategoryController extends Controller
         ]);
     }
 
-    /**
-     * Show the form to edit a category.
-     */
-    public function EditCategory($id) 
-    {
-        $category = Category::findOrFail($id); 
-        return view('admin.backend.category.edit_category', compact('category')); 
+    public function EditCategory($id){
+        $category = Category::find($id);
+        return view('admin.backend.category.edit_category', compact('category'));
     }
+     // End Method 
 
-    /**
-     * Update an existing category.
-     */
-    public function UpdateCategory(Request $request) 
-    {
-        $request->validate([
-            'category_name' => 'required|string|max:255',
-            'image' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
-        ]);
+     public function UpdateCategory(Request $request){
 
-        $category = Category::findOrFail($request->id);
+        $cat_id = $request->id;
 
         if ($request->file('image')) {
             $image = $request->file('image');
-            $name_gen = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
-            $image_path = public_path('upload/category/' . $name_gen);
+            $manager = new ImageManager(new Driver());
+            $name_gen = hexdec(uniqid()).'.'.$image->getClientOriginalExtension();
+            $img = $manager->read($image);
+            $img->resize(300,300)->save(public_path('upload/category/'.$name_gen));
+            $save_url = 'upload/category/'.$name_gen;
 
-            // Resize and save the image
-            Image::make($image)->resize(300, 300)->save($image_path);
-            $save_url = 'upload/category/' . $name_gen;
-
-            // Delete the old image if exists
-            if ($category->image && file_exists(public_path($category->image))) {
-                unlink(public_path($category->image));
-            }
-
-            $category->update([
+            Category::find($cat_id)->update([
                 'category_name' => $request->category_name,
-                'image' => $save_url,
-            ]);
+                'image' => $save_url, 
+            ]); 
+            $notification = array(
+                'message' => 'Category Updated Successfully',
+                'alert-type' => 'success'
+            );
+
+            return redirect()->route('all.category')->with($notification);
+
         } else {
-            $category->update([
-                'category_name' => $request->category_name,
-            ]);
-        }
 
-        return redirect()->route('all.category')->with([
-            'message' => 'Category Updated Successfully',
-            'alert-type' => 'success',
-        ]);
+            Category::find($cat_id)->update([
+                'category_name' => $request->category_name, 
+            ]); 
+            $notification = array(
+                'message' => 'Category Updated Successfully',
+                'alert-type' => 'success'
+            );
+
+            return redirect()->route('all.category')->with($notification);
+
+        }
     }
+    // End Method 
+
+    public function DeleteCategory($id)
+    {
+        // Find the category by ID
+        $category = Category::findOrFail($id);
+    
+        // Check if the category has an associated image and delete it
+        if ($category->image && file_exists(public_path($category->image))) {
+            unlink(public_path($category->image));
+        }
+    
+        // Delete the category record from the database
+        $category->delete();
+    
+        // Prepare the success notification
+        $notification = [
+            'message' => 'Category Deleted Successfully',
+            'alert-type' => 'success',
+        ];
+    
+        return redirect()->back()->with($notification);
+    }
+    
+    // End Method 
 }
 
 
