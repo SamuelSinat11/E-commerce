@@ -50,3 +50,11 @@ Route::middleware('admin')->group(function () {
         Route::get('/delete/category/{id}', 'DeleteCategory')->name('delete.category');
     }); 
 });
+
+Route::middleware('admin')->group(function () { 
+    Route::controller(EventsController::class) -> group(function() {
+        Route::get('/all/events', 'AllEvents') -> name ('all.events');
+        Route::get('/add/event', 'AddEvent') -> name ('add.events');
+   
+    });
+});

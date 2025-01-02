@@ -21,7 +21,7 @@
             <div class="col-12">
                 <div class="card shadow-sm">
                     <div class="card-header bg-primary text-white">
-                        <h5 class="mb-0">All Categories</h5>
+                        <h5 class="mb-0 text-white">All Categories</h5>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -41,7 +41,7 @@
                                         <td>{{ $item->category_name }}</td>
                                         <td><img src="{{ asset($item->image) }}" alt="" style="width: 70px; height:40px;"></td>
                                         <td class="text-center">
-                                            <a href="{{ route('edit.category', $item->id) }}" class="btn btn-success btn-sm me-2">
+                                            <a href="{{ route('edit.category', $item->id) }}" class="btn btn-primary btn-sm me-2">
                                                 <i class="fas fa-edit"></i> Edit
                                             </a>
                                             <a href="{{ route('delete.category', $item->id) }}" id="delete" class="btn btn-danger btn-sm">
