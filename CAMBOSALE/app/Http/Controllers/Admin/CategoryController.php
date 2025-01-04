@@ -132,4 +132,29 @@ class CategoryController extends Controller
         return view('admin.backend.products.all_products', compact('products'));
     }
 
+
+    public function StoreProducts(Request $request)
+    {
+        $request->validate([
+            'Product_Name' => 'required|string|max:255',
+            'Product_Description' => 'required|string|max:255',
+            'Price' => 'required|string|max:255',
+        ]);
+
+        $save_url = null;
+
+        Product::create([
+            'Product_Name' => $request->Product_Name,
+            'Product_Description' => $request-> Product_Description, 
+            'Price' => $request-> Price, 
+            'Product_Image' => $save_url,
+        ]);
+
+        return redirect()->route('all.products')->with([
+            'message' => 'Category Inserted Successfully',
+            'alert-type' => 'success',
+        ]);
+    }
+
+
 }

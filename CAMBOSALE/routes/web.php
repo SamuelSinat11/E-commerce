@@ -54,6 +54,7 @@ Route::middleware('admin')->group(function () {
 Route::middleware('admin')->group(function () { 
     Route::controller(CategoryController::class) -> group(function() {
         Route::get('/all/product', 'AllProduct') -> name ('all.products'); 
+        Route::post('/store/products', 'StoreProducts') -> name ('products.store'); 
         
     }); 
 });

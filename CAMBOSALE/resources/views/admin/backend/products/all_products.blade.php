@@ -61,27 +61,65 @@
         <!-- End Categories Table -->
     </div>
 </div>
-
-
-
-<!-- sample modal content -->
+<!-- Sample Modal Content -->
 <div id="exampleModalFullscreen" class="modal fade" tabindex="-1" aria-labelledby="exampleModalFullscreenLabel" aria-hidden="true">
-    <div class="modal-dialog modal-fullscreen">
+    <div class="modal-dialog modal-dialog-centered modal-fullscreen">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalFullscreenLabel">Fullscreen Modal</h5>
+                <h5 class="modal-title text-center w-100" id="exampleModalFullscreenLabel">Add New Product</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-                <h5>Overflowing text to show scroll behavior</h5>
-                <p>Cras mattis consectetur purus sit amet fermentum.
-                    Cras justo odio, dapibus ac facilisis in,
-                    egestas eget quam. Morbi leo risus, porta ac
-                    consectetur ac, vestibulum at eros.</p>
+            <div class ="card"> 
+                <div class="card-body p-4">
+            <form id="productForm" action="{{ route('products.store')}}" method="POST" enctype="multipart/form-data">
+                @csrf
+                <div class="modal-body">
+                    <div class="container">
+                        
+                        <div class="row justify-content-center">
+                            <!-- Product Name -->
+                            <div class="col-md-6">
+                                <div class="form-group mb-4">
+                                    <label for="product_name" class="form-label">Product Name</label>
+                                    <input class="form-control" type="text" name="product_name" id="product_name" placeholder="Enter product name" required>
+                                </div>
+                            </div>
+
+                            <!-- Product Description -->
+                            <div class="col-md-6">
+                                <div class="form-group mb-4">
+                                    <label for="product_description" class="form-label">Product Description</label>
+                                    <textarea class="form-control" name="product_description" id="product_description" rows="3" placeholder="Enter product description" required></textarea>
+                                </div>
+                            </div>
+
+                            <!-- Product Image -->
+                            <div class="col-md-6">
+                                <div class="form-group mb-4">
+                                    <label for="product_image" class="form-label">Product Image</label>
+                                    <input class="form-control" type="file" name="product_image" id="product_image" accept="image/*">
+                                </div>
+                                <div class="text-center">
+                                    <img id="previewImage" src="{{ url('upload/no_image.jpg') }}" alt="Product Image Preview" class="rounded border p-2 bg-light" width="100">
+                                </div>
+                            </div>
+
+                            <!-- Product Price -->
+                            <div class="col-md-6">
+                                <div class="form-group mb-4">
+                                    <label for="product_price" class="form-label">Price ($)</label>
+                                    <input class="form-control" type="number" name="product_price" id="product_price" placeholder="Enter price" min="0.01" step="0.01" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer justify-content-center">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                </div>
+            </form>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary waves-effect" data-bs-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary waves-effect waves-light">Save</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
