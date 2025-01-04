@@ -123,4 +123,13 @@ class CategoryController extends Controller
             'alert-type' => 'success',
         ]);
     }   
+
+
+    // All Product Method 
+    public function AllProduct ()
+    {
+        $products = Product::latest()->get();
+        return view('admin.backend.products.all_products', compact('products'));
+    }
+
 }
