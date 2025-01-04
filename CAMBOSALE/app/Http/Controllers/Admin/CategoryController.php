@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Category;
-use App\Models\Events;
 use Intervention\Image\Facades\Image; // Correct import for Intervention Image
+use App\Models\Product;
 
 
 class CategoryController extends Controller
@@ -122,20 +122,5 @@ class CategoryController extends Controller
             'message' => 'Category Deleted Successfully',
             'alert-type' => 'success',
         ]);
-    }
-
-    public function AllEvents()
-    {
-        $events = Events::latest()->get();
-        return view('admin.backend.events.all_events', compact('events'));
-    }
-
-    /**
-     * Show the form to add a new category.
-     */
-    public function AddEvent()
-    {
-        return view('admin.backend.events.add_events');
-    }
-    
+    }   
 }
