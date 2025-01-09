@@ -5,32 +5,21 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Category;
-use Intervention\Image\Facades\Image; // Correct import for Intervention Image
-use App\Models\Product;
-
+use Intervention\Image\Facades\Image;
 
 class CategoryController extends Controller
 {
-    /**
-     * Display all categories.
-     */
     public function allCategory()
     {
         $categories = Category::latest()->get();
         return view('admin.backend.category.all_category', compact('categories'));
     }
 
-    /**
-     * Show the form to add a new category.
-     */
     public function AddCategory()
     {
         return view('admin.backend.category.add_category');
     }
 
-    /**
-     * Store a new category.
-     */
     public function StoreCategory(Request $request)
     {
         $request->validate([
@@ -61,21 +50,17 @@ class CategoryController extends Controller
         ]);
     }
 
-    /**
-     * Show the edit form for a specific category.
-     */
     public function EditCategory($id)
     {
-        $category = Category::find($id);
+        $category = Category::findOrFail($id);
         return view('admin.backend.category.edit_category', compact('category'));
     }
 
-    /**
-     * Update an existing category.
-     */
     public function UpdateCategory(Request $request)
     {
         $cat_id = $request->id;
+
+        $category = Category::findOrFail($cat_id);
 
         if ($request->file('image')) {
             $image = $request->file('image');
@@ -83,17 +68,20 @@ class CategoryController extends Controller
             $image_path = public_path('upload/category/' . $name_gen);
 
             // Resize and save the new image
-            Image::make($image)->resize(300, 300)->save($image_path);
+            // Image::make($image)->resize(300, 300)->save($image_path);
             $save_url = 'upload/category/' . $name_gen;
 
-            // Update the category with the new image
-            Category::find($cat_id)->update([
+            // Delete the old image if it exists
+            if ($category->image && file_exists(public_path($category->image))) {
+                unlink(public_path($category->image));
+            }
+
+            $category->update([
                 'category_name' => $request->category_name,
                 'image' => $save_url,
             ]);
         } else {
-            // Update the category without a new image
-            Category::find($cat_id)->update([
+            $category->update([
                 'category_name' => $request->category_name,
             ]);
         }
@@ -104,9 +92,6 @@ class CategoryController extends Controller
         ]);
     }
 
-    /**
-     * Delete a category.
-     */
     public function DeleteCategory($id)
     {
         $category = Category::findOrFail($id);
@@ -122,39 +107,22 @@ class CategoryController extends Controller
             'message' => 'Category Deleted Successfully',
             'alert-type' => 'success',
         ]);
-    }   
-
-
-    // All Product Method 
-    public function AllProduct ()
-    {
-        $products = Product::latest()->get();
-        return view('admin.backend.products.all_products', compact('products'));
     }
 
-
-    public function StoreProducts(Request $request)
-    {
-        $request->validate([
-            'Product_Name' => 'required|string|max:255',
-            'Product_Description' => 'required|string|max:255',
-            'Price' => 'required|string|max:255',
-        ]);
-
-        $save_url = null;
-
-        Product::create([
-            'Product_Name' => $request->Product_Name,
-            'Product_Description' => $request-> Product_Description, 
-            'Price' => $request-> Price, 
-            'Product_Image' => $save_url,
-        ]);
-
-        return redirect()->route('all.products')->with([
-            'message' => 'Category Inserted Successfully',
-            'alert-type' => 'success',
-        ]);
+    public function filter(Request $request) {
+        $start_date = $request->start_date;
+        $end_date = $request->end_date;
+    
+        // Validate input dates
+        if (!$start_date || !$end_date) {
+            return redirect()->back()->with('error', 'Start and End dates are required.');
+        }
+    
+        // Query categories based on the date range
+        $categories = Category::whereDate('created_at', '>=', $start_date)
+                              ->whereDate('created_at', '<=', $end_date)
+                              ->get();
+    
+        return view('admin.backend.category.all_category', compact('categories'));
     }
-
-
 }

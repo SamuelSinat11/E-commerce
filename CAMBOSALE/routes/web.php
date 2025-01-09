@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController; 
 use App\Http\Controllers\Admin\CategoryController; 
+use App\Http\Controllers\Admin\OrderControllers; 
 
 Route::get('/', function () {
     return view('welcome');
@@ -48,13 +49,31 @@ Route::middleware('admin')->group(function () {
         Route::get('/edit/category/{id}', 'EditCategory')->name('edit.category');
         Route::post('/update/category', 'UpdateCategory')->name('category.update');
         Route::get('/delete/category/{id}', 'DeleteCategory')->name('delete.category');
+        Route::get('/filter', [CategoryController::class, 'filter']); 
     }); 
 });
 
 Route::middleware('admin')->group(function () { 
     Route::controller(CategoryController::class) -> group(function() {
-        Route::get('/all/product', 'AllProduct') -> name ('all.products'); 
+        Route::get('/all/product', 'AllProduct') -> name ('all.products');
+        Route::get('/add/product', 'AddProduct') -> name ('add.products');  
         Route::post('/store/products', 'StoreProducts') -> name ('products.store'); 
-        
+
+    }); 
+});
+
+
+Route::middleware('admin')-> group(function() { 
+    Route::controller(ComputerController::class) -> group(function() {
+        Route::get('/all/computer', 'AllComputer') -> name ('all.computer');
+        Route::get('/add/computer', 'AddComputer') -> name('add.computer');  
+        Route::get('/computer/create', 'createComputer') -> name('computer.store'); 
+    }); 
+}); 
+
+// All about create orders Listed 
+Route::middleware('admin')->group(function () { 
+    Route::controller(OrderControllers::class) -> group(function() {
+        Route::get('/orders/create', [OrderControllers::class,'create'])->name('orders.create'); 
     }); 
 });

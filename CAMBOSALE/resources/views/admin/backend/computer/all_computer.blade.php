@@ -8,35 +8,13 @@
             <div class="col-12">
                 <div class="d-flex align-items-center justify-content-between">
                     <h4 class="text-dark font-weight-bold">Category Management</h4>
-                    <a href="{{ route('add.category') }}" class="btn btn-primary btn-rounded">
+                    <a href="{{ route('add.computer') }}" class="btn btn-primary btn-rounded">
                         <i class="fas fa-plus me-2"></i>Add Category
                     </a>
                 </div>
             </div>
         </div>
         <!-- End Page Title -->
-        <form method="GET" action="/filter">
-            <div class="row pb-3"> 
-                
-                <div class="col-md-3 ">
-                    <label> Start Date: </label>
-                    <input type="date" class="form-control" name="start_date"> 
-                </div>
-
-                <div class="col-md-3 ">
-                    <label> End Date: </label>
-                    <input type="date" class="form-control" name="end_date"> 
-                </div>
-
-                <div class="col-md-1 pt-4"> 
-                    <button type="submit" class="btn btn-primary"> Filter </button>
-                </div>
-
-                <div class="col-md-5 pt-4"> 
-                    <a class="btn btn-dark" href=""> Download Excel</a>
-                </div>
-            </div>
-        </form>
 
         <!-- Categories Table -->
         <div class="row">
@@ -53,9 +31,7 @@
                                         <th>#</th>
                                         <th>Category Name</th>
                                         <th>Image</th>
-                                        <th>Date</th> 
                                         <th>Action</th>
-                                       
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -64,7 +40,6 @@
                                         <td>{{ $key + 1 }}</td>
                                         <td>{{ $item->category_name }}</td>
                                         <td><img src="{{ asset($item->image) }}" alt="" style="width: 70px; height:40px;"></td>
-                                        <td>{{ $item->created_at->format('Y-m-d')}} </td>
                                         <td class="text-center">
                                             <a href="{{ route('edit.category', $item->id) }}" class="btn btn-primary btn-sm me-2">
                                                 <i class="fas fa-edit"></i> Edit

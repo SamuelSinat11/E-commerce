@@ -26,8 +26,8 @@
         <!-- App CSS -->
         <link href="{{ asset('backend/assets/css/app.min.css') }}" id="app-style" rel="stylesheet" type="text/css" />
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" >
-     
 
+   
     </head>
 
     <body>
@@ -111,7 +111,7 @@
   
   <!-- Datatable init js -->
   <script src="{{ asset('backend/assets/js/pages/datatables.init.js')}}"></script>    
-
+ 
 <script>
  @if(Session::has('message'))
  var type = "{{ Session::get('alert-type','info') }}"
