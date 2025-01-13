@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use Intervention\Image\Facades\Image;
+use App\Exports\CategoriesExport; 
+use Maatwebsite\Excel\Facades\Excel; 
 
 class CategoryController extends Controller
 {
@@ -125,4 +127,11 @@ class CategoryController extends Controller
     
         return view('admin.backend.category.all_category', compact('categories'));
     }
+
+    public function export() 
+    {
+        $filename = "categories.xlsx"; 
+        return Excel::download(new CategoryExport, $filename); 
+    }
+
 }

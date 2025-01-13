@@ -7,9 +7,9 @@
         <div class="row mb-4">
             <div class="col-12">
                 <div class="d-flex align-items-center justify-content-between">
-                    <h4 class="text-dark font-weight-bold">Category Management</h4>
-                    <a href="{{ route('add.category') }}" class="btn btn-primary btn-rounded">
-                        <i class="fas fa-plus me-2"></i>Add Category
+                    <h4 class="text-dark font-weight-bold">Product Management</h4>
+                    <a href="{{ route('add.product') }}" class="btn btn-primary btn-rounded">
+                        <i class="fas fa-plus me-2"></i>Add Product
                     </a>
                 </div>
             </div>
@@ -43,7 +43,7 @@
             <div class="col-12">
                 <div class="card shadow-sm">
                     <div class="card-header bg-primary text-white">
-                        <h5 class="mb-0 text-white">All Categories</h5>
+                        <h5 class="mb-0 text-white">All Product</h5>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -51,19 +51,38 @@
                                 <thead class="table-light">
                                     <tr>
                                         <th>#</th>
-                                        <th>Category Name</th>
                                         <th>Image</th>
+                                        <th>Name</th> 
+                                        <th>discription</th> 
+                                        <th>qty</th> 
+                                        <th>Price</th> 
+                                        <th>Discount</th> 
+                                        <th>Status</th> 
                                         <th>Date</th> 
                                         <th>Action</th>
                                        
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($categories as $key => $item)
+                                    @foreach ($products as $key => $item)
                                     <tr>
                                         <td>{{ $key + 1 }}</td>
-                                        <td>{{ $item->category_name }}</td>
-                                        <td><img src="{{ asset($item->image) }}" alt="" style="width: 70px; height:40px;"></td>
+                                        <td>
+                                            <img src="{{ asset($item->image) }}" alt="" style="width: 70px; height: 40px;">
+                                        </td>
+                                        <td> {{ $item->name }} </td>
+                                        <td> {{ $item->discription }} </td>
+                                        <td> {{ $item->qty }} </td>
+                                        <td> {{ $item->price }} </td>
+                                        <td> {{ $item->discount_price }} </td> 
+                                        <td> 
+                                            @if($item->status == 1)
+                                            <span class="text-success"><b> Active </b> </span>
+                                            @else 
+                                            <span class="text-danger"><b> InActive </b> </span> 
+                                            @endif 
+                                        </td> 
+                                        
                                         <td>{{ $item->created_at->format('Y-m-d')}} </td>
                                         <td class="text-center">
                                             <a href="{{ route('edit.category', $item->id) }}" class="btn btn-primary btn-sm me-2">
